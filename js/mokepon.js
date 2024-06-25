@@ -59,13 +59,24 @@ ratigueya.ataques.push(
 console.log(pokemones)
 
 
-
-
+const contenedorTarjetas = document.getElementById("contenedor-tarjetas")
 
 function iniciarJuego() {
     sectionSeleccionarAtaque.style.display = 'none'
     sectionReiniciar.style.display = 'none'
     
+    pokemones.forEach(pokemon =>{
+        let pokemonHTML = `
+        
+        <input type="radio" name="mascota" id=${pokemon.nombre} />
+                <label class="tarjeta-de-mokepon" for=${pokemon.nombre}>
+                    <p>${pokemon.nombre}</p>
+                    <img src=${pokemon.foto} alt=${pokemon.nombre}>
+                </label>
+        `
+        contenedorTarjetas.innerHTML += pokemonHTML;
+    })
+
     let botonMascotaJugador = document.getElementById('boton-mascota')
     botonMascotaJugador.addEventListener('click', seleccionarMascotaJugador)
 
