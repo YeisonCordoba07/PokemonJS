@@ -107,48 +107,6 @@ function iniciarJuego() {
 }
 
 
-function construirBotones() {
-    if (spanMascotaJugador.textContent === pokemones[0].nombre) {
-        crearBotonesDeAtaque(pokemones[0])
-    } else if (spanMascotaJugador.textContent === pokemones[1].nombre) {
-        crearBotonesDeAtaque(pokemones[1])
-    } else if (spanMascotaJugador.textContent === pokemones[2].nombre) {
-        crearBotonesDeAtaque(pokemones[2])
-    } else {
-        console.log("ERRORLAKSF")
-    }
-}
-
-
-
-function crearBotonesDeAtaque(pokemon) {
-    pokemon.ataques.forEach(ataque => {
-
-        let botonTemporal =
-            `
-        <button id="${ataque.id}" class="boton-de-ataque">${ataque.nombre}</button>
-        `
-        contenedorTarjetasAtaques.innerHTML += botonTemporal
-    })
-
-    botonesDeAtaque = document.querySelectorAll(".boton-de-ataque")
-
-    botonesDeAtaque.forEach(botonI => {
-
-        if (botonI.id.includes("agua")) {
-            botonI.addEventListener("click", ataqueAgua)
-            console.log(botonI, "agua")
-        } else if (botonI.id.includes("fuego")) {
-            botonI.addEventListener("click", ataqueFuego)
-            console.log(botonI, "fuego")
-        } else if (botonI.id.includes("tierra")) {
-            botonI.addEventListener("click", ataqueTierra)
-            console.log(botonI, "tierra")
-        }
-    })
-}
-
-
 function seleccionarMascotaJugador() {
 
     if (inputHipodoge.checked) {
@@ -178,6 +136,7 @@ function seleccionarMascotaJugador() {
 
 }
 
+
 function empezarCombate() {
     let sectionSeleccionarMascota = document.getElementById('seleccionar-mascota')
 
@@ -185,12 +144,62 @@ function empezarCombate() {
     sectionSeleccionarAtaque.style.display = 'flex'
 }
 
+
 function seleccionarMascotaEnemigo() {
     let mascotaAleatoria = aleatorio(0, pokemones.length - 1)
     let spanMascotaEnemigo = document.getElementById('mascota-enemigo')
 
     spanMascotaEnemigo.innerHTML = pokemones[mascotaAleatoria].nombre
 }
+
+
+function construirBotones() {
+
+    let pokemonSeleccionado = pokemones.find(pokemon =>{
+        if(spanMascotaJugador.textContent === pokemon.nombre){
+            return pokemon;
+        }
+    })
+
+    if (pokemonSeleccionado) {
+        crearBotonesDeAtaque(pokemonSeleccionado);
+    } else {
+        console.log("Error al seleccionar pokemon");
+    }
+}
+
+
+
+function crearBotonesDeAtaque(pokemon) {
+    pokemon.ataques.forEach(ataque => {
+
+        let botonTemporal =
+            `
+        <button id="${ataque.id}" class="boton-de-ataque">${ataque.nombre}</button>
+        `
+        contenedorTarjetasAtaques.innerHTML += botonTemporal
+    })
+
+    botonesDeAtaque = document.querySelectorAll(".boton-de-ataque")
+
+    botonesDeAtaque.forEach(botonI => {
+
+        if (botonI.id.includes("agua")) {
+            botonI.addEventListener("click", ataqueAgua)
+
+        } else if (botonI.id.includes("fuego")) {
+            botonI.addEventListener("click", ataqueFuego)
+
+        } else if (botonI.id.includes("tierra")) {
+            botonI.addEventListener("click", ataqueTierra)
+
+        }
+    })
+}
+
+
+
+
 
 function ataqueFuego() {
     ataqueJugador = 'FUEGO'
