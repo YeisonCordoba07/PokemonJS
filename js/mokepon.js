@@ -3,21 +3,23 @@ let ataqueEnemigo
 let vidasJugador = 3
 let vidasEnemigo = 3
 
-function iniciarJuego() {
-    let sectionSeleccionarAtaque = document.getElementById('seleccionar-ataque')
-    sectionSeleccionarAtaque.style.display = 'none'
 
-    let sectionReiniciar = document.getElementById('reiniciar')
+const sectionSeleccionarAtaque = document.getElementById('seleccionar-ataque')
+
+const sectionReiniciar = document.getElementById('reiniciar')
+const botonFuego = document.getElementById('boton-fuego')
+const botonAgua = document.getElementById('boton-agua')
+const botonTierra = document.getElementById('boton-tierra')
+
+function iniciarJuego() {
+    sectionSeleccionarAtaque.style.display = 'none'
     sectionReiniciar.style.display = 'none'
     
     let botonMascotaJugador = document.getElementById('boton-mascota')
     botonMascotaJugador.addEventListener('click', seleccionarMascotaJugador)
 
-    let botonFuego = document.getElementById('boton-fuego')
     botonFuego.addEventListener('click', ataqueFuego)
-    let botonAgua = document.getElementById('boton-agua')
     botonAgua.addEventListener('click', ataqueAgua)
-    let botonTierra = document.getElementById('boton-tierra')
     botonTierra.addEventListener('click', ataqueTierra)
 
     let botonReiniciar = document.getElementById('boton-reiniciar')
@@ -26,24 +28,31 @@ function iniciarJuego() {
 
 function seleccionarMascotaJugador() {
 
-    
     let inputHipodoge = document.getElementById('hipodoge')
     let inputCapipepo = document.getElementById('capipepo')
     let inputRatigueya = document.getElementById('ratigueya')
     let spanMascotaJugador = document.getElementById('mascota-jugador')
     
+
+
     if (inputHipodoge.checked) {
+
         spanMascotaJugador.innerHTML = 'Hipodoge'
         empezarCombate();
         seleccionarMascotaEnemigo()
+
     } else if (inputCapipepo.checked) {
+
         spanMascotaJugador.innerHTML = 'Capipepo'
         empezarCombate();
         seleccionarMascotaEnemigo()
+
     } else if (inputRatigueya.checked) {
+
         spanMascotaJugador.innerHTML = 'Ratigueya'
         empezarCombate();
         seleccionarMascotaEnemigo()
+
     } else {
         alert('Selecciona una mascota')
     }
@@ -53,9 +62,8 @@ function seleccionarMascotaJugador() {
 
 function empezarCombate(){
     let sectionSeleccionarMascota = document.getElementById('seleccionar-mascota')
+
     sectionSeleccionarMascota.style.display = 'none'
-    
-    let sectionSeleccionarAtaque = document.getElementById('seleccionar-ataque')
     sectionSeleccionarAtaque.style.display = 'flex'
 }
 
@@ -103,24 +111,35 @@ function combate() {
     let spanVidasJugador = document.getElementById('vidas-jugador')
     let spanVidasEnemigo = document.getElementById('vidas-enemigo')
     
+    
     if(ataqueEnemigo == ataqueJugador) {
+
         crearMensaje("EMPATE")
+
     } else if(ataqueJugador == 'FUEGO' && ataqueEnemigo == 'TIERRA') {
+
         crearMensaje("GANASTE")
         vidasEnemigo--
         spanVidasEnemigo.innerHTML = vidasEnemigo
+
     } else if(ataqueJugador == 'AGUA' && ataqueEnemigo == 'FUEGO') {
+
         crearMensaje("GANASTE")
         vidasEnemigo--
         spanVidasEnemigo.innerHTML = vidasEnemigo
+
     } else if(ataqueJugador == 'TIERRA' && ataqueEnemigo == 'AGUA') {
+
         crearMensaje("GANASTE")
         vidasEnemigo--
         spanVidasEnemigo.innerHTML = vidasEnemigo
+
     } else {
+
         crearMensaje("PERDISTE")
         vidasJugador--
         spanVidasJugador.innerHTML = vidasJugador
+
     }
 
     revisarVidas()
@@ -155,14 +174,10 @@ function crearMensajeFinal(resultadoFinal) {
     
     sectionMensajes.innerHTML = resultadoFinal
 
-    let botonFuego = document.getElementById('boton-fuego')
     botonFuego.disabled = true
-    let botonAgua = document.getElementById('boton-agua')
     botonAgua.disabled = true
-    let botonTierra = document.getElementById('boton-tierra')
     botonTierra.disabled = true
-
-    let sectionReiniciar = document.getElementById('reiniciar')
+    
     sectionReiniciar.style.display = 'block'
 }
 
