@@ -11,6 +11,20 @@ const botonFuego = document.getElementById('boton-fuego')
 const botonAgua = document.getElementById('boton-agua')
 const botonTierra = document.getElementById('boton-tierra')
 
+
+let inputHipodoge
+let inputCapipepo
+let inputRatigueya
+const spanMascotaJugador = document.getElementById('mascota-jugador')
+
+
+
+
+
+
+const contenedorTarjetas = document.getElementById("contenedor-tarjetas")
+
+
 let pokemones = []
 class Pokemon{
     constructor(nombre, foto, vida){
@@ -59,7 +73,6 @@ ratigueya.ataques.push(
 console.log(pokemones)
 
 
-const contenedorTarjetas = document.getElementById("contenedor-tarjetas")
 
 function iniciarJuego() {
     sectionSeleccionarAtaque.style.display = 'none'
@@ -77,6 +90,11 @@ function iniciarJuego() {
         contenedorTarjetas.innerHTML += pokemonHTML;
     })
 
+    inputHipodoge = document.getElementById('Hipodoge')
+    inputCapipepo = document.getElementById('Capipepo')
+    inputRatigueya = document.getElementById('Ratigueya')
+
+
     let botonMascotaJugador = document.getElementById('boton-mascota')
     botonMascotaJugador.addEventListener('click', seleccionarMascotaJugador)
 
@@ -88,14 +106,7 @@ function iniciarJuego() {
     botonReiniciar.addEventListener('click', reiniciarJuego)
 }
 
-function seleccionarMascotaJugador() {
-
-    let inputHipodoge = document.getElementById('hipodoge')
-    let inputCapipepo = document.getElementById('capipepo')
-    let inputRatigueya = document.getElementById('ratigueya')
-    let spanMascotaJugador = document.getElementById('mascota-jugador')
-    
-
+function seleccionarMascotaJugador() {  
 
     if (inputHipodoge.checked) {
 
