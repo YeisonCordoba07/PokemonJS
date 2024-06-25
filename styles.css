@@ -80,6 +80,10 @@ input:checked + label {
   color: white;
   font-family: 'Poppins', sans-serif;
 }
+.boton-de-ataque:hover{
+    scale:1.1;
+    background-color: #1e62c0;
+}
 
 #mensajes {
   width: 280px;

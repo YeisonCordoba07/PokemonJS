@@ -21,13 +21,16 @@ const spanMascotaJugador = document.getElementById('mascota-jugador')
 
 
 
-
 const contenedorTarjetas = document.getElementById("contenedor-tarjetas")
+
+const contenedorTarjetasAtaques = document.getElementById("contenedor-tarjetas-ataques");
+
+let botonesDeAtaque = []
 
 
 let pokemones = []
-class Pokemon{
-    constructor(nombre, foto, vida){
+class Pokemon {
+    constructor(nombre, foto, vida) {
         this.nombre = nombre
         this.foto = foto
         this.vida = vida
@@ -48,27 +51,27 @@ pokemones.push(ratigueya)
 
 // Agrega ataques a los pokemones
 hipodoge.ataques.push(
-    {nombre: "💧", id: "boton-agua"},
-    {nombre: "💧", id: "boton-agua"},
-    {nombre: "💧", id: "boton-agua"},
-    {nombre: "🔥", id: "boton-fuego"},
-    {nombre: "🌱", id: "boton-tierra"},
+    { nombre: "💧", id: "boton-aguaH1" },
+    { nombre: "💧", id: "boton-aguaH2" },
+    { nombre: "💧", id: "boton-aguaH3" },
+    { nombre: "🔥", id: "boton-fuegoH" },
+    { nombre: "🌱", id: "boton-tierraH" },
 )
 
 capipepo.ataques.push(
-    {nombre: "🌱", id: "boton-tierra"},
-    {nombre: "🌱", id: "boton-tierra"},
-    {nombre: "🌱", id: "boton-tierra"},
-    {nombre: "💧", id: "boton-agua"},
-    {nombre: "🔥", id: "boton-fuego"},
+    { nombre: "🌱", id: "boton-tierraC1" },
+    { nombre: "🌱", id: "boton-tierraC2" },
+    { nombre: "🌱", id: "boton-tierraC3" },
+    { nombre: "💧", id: "boton-aguaC" },
+    { nombre: "🔥", id: "boton-fuegoC" },
 )
 
 ratigueya.ataques.push(
-    {nombre: "🔥", id: "boton-fuego"},
-    {nombre: "🔥", id: "boton-fuego"},
-    {nombre: "🔥", id: "boton-fuego"},
-    {nombre: "💧", id: "boton-agua"},
-    {nombre: "🌱", id: "boton-tierra"},
+    { nombre: "🔥", id: "boton-fuegoR1" },
+    { nombre: "🔥", id: "boton-fuegoR2" },
+    { nombre: "🔥", id: "boton-fuegoR3" },
+    { nombre: "💧", id: "boton-aguaR" },
+    { nombre: "🌱", id: "boton-tierraR" },
 )
 console.log(pokemones)
 
@@ -77,8 +80,8 @@ console.log(pokemones)
 function iniciarJuego() {
     sectionSeleccionarAtaque.style.display = 'none'
     sectionReiniciar.style.display = 'none'
-    
-    pokemones.forEach(pokemon =>{
+
+    pokemones.forEach(pokemon => {
         let pokemonHTML = `
         
         <input type="radio" name="mascota" id=${pokemon.nombre} />
@@ -98,42 +101,84 @@ function iniciarJuego() {
     let botonMascotaJugador = document.getElementById('boton-mascota')
     botonMascotaJugador.addEventListener('click', seleccionarMascotaJugador)
 
-    botonFuego.addEventListener('click', ataqueFuego)
-    botonAgua.addEventListener('click', ataqueAgua)
-    botonTierra.addEventListener('click', ataqueTierra)
-
     let botonReiniciar = document.getElementById('boton-reiniciar')
     botonReiniciar.addEventListener('click', reiniciarJuego)
+
 }
 
-function seleccionarMascotaJugador() {  
+
+function construirBotones() {
+    if (spanMascotaJugador.textContent === pokemones[0].nombre) {
+        crearBotonesDeAtaque(pokemones[0])
+    } else if (spanMascotaJugador.textContent === pokemones[1].nombre) {
+        crearBotonesDeAtaque(pokemones[1])
+    } else if (spanMascotaJugador.textContent === pokemones[2].nombre) {
+        crearBotonesDeAtaque(pokemones[2])
+    } else {
+        console.log("ERRORLAKSF")
+    }
+}
+
+
+
+function crearBotonesDeAtaque(pokemon) {
+    pokemon.ataques.forEach(ataque => {
+
+        let botonTemporal =
+            `
+        <button id="${ataque.id}" class="boton-de-ataque">${ataque.nombre}</button>
+        `
+        contenedorTarjetasAtaques.innerHTML += botonTemporal
+    })
+
+    botonesDeAtaque = document.querySelectorAll(".boton-de-ataque")
+
+    botonesDeAtaque.forEach(botonI => {
+
+        if (botonI.id.includes("agua")) {
+            botonI.addEventListener("click", ataqueAgua)
+            console.log(botonI, "agua")
+        } else if (botonI.id.includes("fuego")) {
+            botonI.addEventListener("click", ataqueFuego)
+            console.log(botonI, "fuego")
+        } else if (botonI.id.includes("tierra")) {
+            botonI.addEventListener("click", ataqueTierra)
+            console.log(botonI, "tierra")
+        }
+    })
+}
+
+
+function seleccionarMascotaJugador() {
 
     if (inputHipodoge.checked) {
 
-        spanMascotaJugador.innerHTML = 'Hipodoge'
+        spanMascotaJugador.innerHTML = inputHipodoge.id
         empezarCombate();
         seleccionarMascotaEnemigo()
+        construirBotones()
 
     } else if (inputCapipepo.checked) {
 
-        spanMascotaJugador.innerHTML = 'Capipepo'
+        spanMascotaJugador.innerHTML = inputCapipepo.id
         empezarCombate();
         seleccionarMascotaEnemigo()
+        construirBotones()
 
     } else if (inputRatigueya.checked) {
 
-        spanMascotaJugador.innerHTML = 'Ratigueya'
+        spanMascotaJugador.innerHTML = inputRatigueya.id
         empezarCombate();
         seleccionarMascotaEnemigo()
+        construirBotones()
 
     } else {
         alert('Selecciona una mascota')
     }
 
-    
 }
 
-function empezarCombate(){
+function empezarCombate() {
     let sectionSeleccionarMascota = document.getElementById('seleccionar-mascota')
 
     sectionSeleccionarMascota.style.display = 'none'
@@ -141,16 +186,10 @@ function empezarCombate(){
 }
 
 function seleccionarMascotaEnemigo() {
-    let mascotaAleatoria = aleatorio(1,3)
+    let mascotaAleatoria = aleatorio(0, pokemones.length - 1)
     let spanMascotaEnemigo = document.getElementById('mascota-enemigo')
 
-    if (mascotaAleatoria == 1) {
-        spanMascotaEnemigo.innerHTML = 'Hipodoge'
-    } else if (mascotaAleatoria == 2) {
-        spanMascotaEnemigo.innerHTML = 'Capipepo'
-    } else {
-        spanMascotaEnemigo.innerHTML = 'Ratigueya'
-    }
+    spanMascotaEnemigo.innerHTML = pokemones[mascotaAleatoria].nombre
 }
 
 function ataqueFuego() {
@@ -167,8 +206,8 @@ function ataqueTierra() {
 }
 
 function ataqueAleatorioEnemigo() {
-    let ataqueAleatorio = aleatorio(1,3)
-    
+    let ataqueAleatorio = aleatorio(1, 3)
+
     if (ataqueAleatorio == 1) {
         ataqueEnemigo = 'FUEGO'
     } else if (ataqueAleatorio == 2) {
@@ -183,25 +222,25 @@ function ataqueAleatorioEnemigo() {
 function combate() {
     let spanVidasJugador = document.getElementById('vidas-jugador')
     let spanVidasEnemigo = document.getElementById('vidas-enemigo')
-    
-    
-    if(ataqueEnemigo == ataqueJugador) {
+
+
+    if (ataqueEnemigo == ataqueJugador) {
 
         crearMensaje("EMPATE")
 
-    } else if(ataqueJugador == 'FUEGO' && ataqueEnemigo == 'TIERRA') {
+    } else if (ataqueJugador == 'FUEGO' && ataqueEnemigo == 'TIERRA') {
 
         crearMensaje("GANASTE")
         vidasEnemigo--
         spanVidasEnemigo.innerHTML = vidasEnemigo
 
-    } else if(ataqueJugador == 'AGUA' && ataqueEnemigo == 'FUEGO') {
+    } else if (ataqueJugador == 'AGUA' && ataqueEnemigo == 'FUEGO') {
 
         crearMensaje("GANASTE")
         vidasEnemigo--
         spanVidasEnemigo.innerHTML = vidasEnemigo
 
-    } else if(ataqueJugador == 'TIERRA' && ataqueEnemigo == 'AGUA') {
+    } else if (ataqueJugador == 'TIERRA' && ataqueEnemigo == 'AGUA') {
 
         crearMensaje("GANASTE")
         vidasEnemigo--
@@ -230,7 +269,7 @@ function crearMensaje(resultado) {
     let sectionMensajes = document.getElementById('resultado')
     let ataquesDelJugador = document.getElementById('ataques-del-jugador')
     let ataquesDelEnemigo = document.getElementById('ataques-del-enemigo')
-    
+
     let nuevoAtaqueDelJugador = document.createElement('p')
     let nuevoAtaqueDelEnemigo = document.createElement('p')
 
@@ -244,13 +283,14 @@ function crearMensaje(resultado) {
 
 function crearMensajeFinal(resultadoFinal) {
     let sectionMensajes = document.getElementById('resultado')
-    
+
     sectionMensajes.innerHTML = resultadoFinal
 
-    botonFuego.disabled = true
-    botonAgua.disabled = true
-    botonTierra.disabled = true
-    
+
+    botonesDeAtaque.forEach(botonI => {
+        botonI.disabled = true
+    })
+
     sectionReiniciar.style.display = 'block'
 }
 
