@@ -11,6 +11,57 @@ const botonFuego = document.getElementById('boton-fuego')
 const botonAgua = document.getElementById('boton-agua')
 const botonTierra = document.getElementById('boton-tierra')
 
+let pokemones = []
+class Pokemon{
+    constructor(nombre, foto, vida){
+        this.nombre = nombre
+        this.foto = foto
+        this.vida = vida
+        this.ataques = []
+    }
+}
+
+let hipodoge = new Pokemon("Hipodoge", "/assets/mokepons_mokepon_hipodoge_attack.png", 3)
+
+let capipepo = new Pokemon("Capipepo", "./assets/mokepons_mokepon_capipepo_attack.png", 3)
+
+let ratigueya = new Pokemon("Ratigueya", "./assets/mokepons_mokepon_ratigueya_attack.png", 3)
+
+//pokemones.push(hipodege, capipepo, ratigueya)
+pokemones.push(hipodoge)
+pokemones.push(capipepo)
+pokemones.push(ratigueya)
+
+// Agrega ataques a los pokemones
+hipodoge.ataques.push(
+    {nombre: "💧", id: "boton-agua"},
+    {nombre: "💧", id: "boton-agua"},
+    {nombre: "💧", id: "boton-agua"},
+    {nombre: "🔥", id: "boton-fuego"},
+    {nombre: "🌱", id: "boton-tierra"},
+)
+
+capipepo.ataques.push(
+    {nombre: "🌱", id: "boton-tierra"},
+    {nombre: "🌱", id: "boton-tierra"},
+    {nombre: "🌱", id: "boton-tierra"},
+    {nombre: "💧", id: "boton-agua"},
+    {nombre: "🔥", id: "boton-fuego"},
+)
+
+ratigueya.ataques.push(
+    {nombre: "🔥", id: "boton-fuego"},
+    {nombre: "🔥", id: "boton-fuego"},
+    {nombre: "🔥", id: "boton-fuego"},
+    {nombre: "💧", id: "boton-agua"},
+    {nombre: "🌱", id: "boton-tierra"},
+)
+console.log(pokemones)
+
+
+
+
+
 function iniciarJuego() {
     sectionSeleccionarAtaque.style.display = 'none'
     sectionReiniciar.style.display = 'none'
