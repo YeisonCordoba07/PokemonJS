@@ -10,7 +10,7 @@ const sectionReiniciar = document.getElementById('reiniciar')
 const botonFuego = document.getElementById('boton-fuego')
 const botonAgua = document.getElementById('boton-agua')
 const botonTierra = document.getElementById('boton-tierra')
-
+let jugadorId = "null"
 
 let inputHipodoge
 let inputCapipepo
@@ -38,7 +38,7 @@ class Pokemon {
     }
 }
 
-let hipodoge = new Pokemon("Hipodoge", "/assets/mokepons_mokepon_hipodoge_attack.png", 3)
+let hipodoge = new Pokemon("Hipodoge", "./assets/mokepons_mokepon_hipodoge_attack.png", 3)
 
 let capipepo = new Pokemon("Capipepo", "./assets/mokepons_mokepon_capipepo_attack.png", 3)
 
@@ -104,6 +104,8 @@ function iniciarJuego() {
     let botonReiniciar = document.getElementById('boton-reiniciar')
     botonReiniciar.addEventListener('click', reiniciarJuego)
 
+    unirseAJuego()
+
 }
 
 
@@ -134,8 +136,22 @@ function seleccionarMascotaJugador() {
         alert('Selecciona una mascota')
     }
 
+    seleccionarPokemon(spanMascotaJugador.textContent)
 }
 
+
+
+function seleccionarPokemon(nombrePokemon){
+    fetch(`http://localhost:8080/pokemon/${jugadorId}`, {
+        method: "post",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            pokemon: nombrePokemon
+        })
+    })
+}
 
 function empezarCombate() {
     let sectionSeleccionarMascota = document.getElementById('seleccionar-mascota')
@@ -311,4 +327,17 @@ function aleatorio(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min)
 }
 
+
+function unirseAJuego(){
+    fetch("http://localhost:8080/unirse")
+    .then((res)=>{
+        if(res.ok){
+            res.text()
+            .then((respuesta)=>{
+               jugadorId = respuesta
+               console.log("jugadorid ", jugadorId)
+            })
+        }
+    })
+}
 window.addEventListener('load', iniciarJuego)

@@ -1,0 +1,15 @@
+{
+  "name": "curso-programacion-basica",
+  "version": "1.0.0",
+  "description": "![image](https://github.com/YeisonCordoba07/PokemonJS/assets/41711172/b75caa4d-3d58-49e3-8066-4f41e29870e5)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2"
+  }
+}
